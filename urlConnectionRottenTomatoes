@@ -8,7 +8,7 @@
  * rewrite the date string into a nicer format, if the Wikipedia page doesn't exist for the normal format, try alternate format.
  * Rewrite as a class, use a GUI to instantiate.
  *
- * @author Alex Earl, Mitali Gupte
+ * @author Mitali Gupte, Alex Earl
  *
  * @version 1.00 2019/31/10
  */
