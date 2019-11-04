@@ -61,7 +61,6 @@ public class urlConnectionTomatoes {
 
                 String inputLine;
                 String line="";
-                String sourceCode = in.
 
 
             }
