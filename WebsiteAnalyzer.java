@@ -1,3 +1,5 @@
+package MovieReviews;
+
 public class WebsiteAnalyzer {
     public class RottenTomatoes {
         public String wordFinder(String message) {
