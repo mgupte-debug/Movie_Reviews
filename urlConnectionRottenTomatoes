@@ -15,13 +15,25 @@
 
 
 
-
 import java.net.*;
 import java.io.*;
 import java.util.Scanner;
 
 public class urlConnectionwiki {
-        
+    
+    public static String trimMovieName(String movie_name){
+
+           String input = movie_name.replace('(', ' ');// if user enters year in parentheses
+           input = movie_name.replace(')', ' ');
+           
+           input = movie_name.replace(' ', '_');
+                    
+           if(input.charAt(input.length()) == '_')
+               input.substring(0, input.length());
+               
+           return input;
+                    }
+                    
     public static void main(String[] args)  {
     
 			  Scanner reader = new Scanner(System.in);
@@ -31,45 +43,24 @@ public class urlConnectionwiki {
 			  
 			  	try{
 			  
-			  		System.out.println("Enter Movie Name (type quit if done)");
-			  		movie_name = reader.nextLine();
-			  		movie_name=movie_name.trim();
+			  		System.out.println("Type in name of movie. (type quit if done)");
+			  		String movie_name = reader.nextLine();
+			  		movie_name= trimMovieName(movie_name);
 			  		if(movie_name.equals("quit"))
 			  				break;
-							
-				String input = input.remove('('); // if user enters year in parentheses
-				input = input.remove(')');
-				input = movie_name.replace(' ', '_');
+			 
 
 			        	
-			  	String rottenTomatoes = "https://www.rottentomatoes.com/m/"+ input;
-			  			
-              rottenTomatoes = new URL(rottenTomatoesPage);
-        			URLConnection yc = rottenTomatoes.openConnection();
+			  	String tomatoesPage = "https://www.rottentomatoes.com/m/"+movie_name;
+			  	URL tomatoes = new URL(tomatoesPage);
+        			URLConnection yc = tomatoes.openConnection();
         			BufferedReader in = new BufferedReader(new InputStreamReader(
                                     yc.getInputStream()));
         
         			String inputLine;
         			String line="";                		
       
-			        while ((inputLine = in.readLine()) != null)
-      		      line+=inputLine;
-        
-        			in.close();
-        			int pos=0;
-	                    
-			        pos = line.indexOf("bday", pos+1);
-      			  if(pos>-1)
-        			{
-          			 int endbdayIndex = line.indexOf("</span>", pos+1);
-          				String bday = line.substring(pos+6, endbdayIndex);
-          				System.out.println("born: " + bday);                
-			    		}
-    					else
-    						System.out.println("We don't know");
-			  	}
-			  	else
-			  		System.out.println("We need a first and last name");
+
 			  }
 			  catch(FileNotFoundException ex)
 			  {
@@ -91,3 +82,7 @@ public class urlConnectionwiki {
 			  	
 	}//endmain
 }//endclass
+
+    
+
+        
