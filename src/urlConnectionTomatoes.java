@@ -19,12 +19,12 @@ public class urlConnectionTomatoes {
     public String trimMovieName(String movie_name){
 
         String input = movie_name.replace('(', ' ');// if user enters year in parentheses
-        input = movie_name.replace(')', ' ');
+        input = input.replace(')', ' ');
 
-        input = movie_name.replace(' ', '_');
+        input = input.replace(' ', '_');
 
-        if(input.charAt(input.length()) == '_')
-            input.substring(0, input.length());
+        if(input.charAt(input.length()-1) == '_')
+            input.substring(0, input.length()-1);
 
         return input;
     }
