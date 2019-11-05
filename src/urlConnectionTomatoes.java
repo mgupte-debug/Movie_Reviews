@@ -28,5 +28,8 @@ public class urlConnectionTomatoes {
 
         return input;
     }
+    public String getHTML(){
+        return "";
+    }
 }//endclass
 
