@@ -1,5 +1,3 @@
-package MovieReviews;
-
 /**
  * @(#)urlConnectionRottenTomatoes.java
  *
@@ -16,14 +14,9 @@ package MovieReviews;
  */
 
 
-
-import java.net.*;
-import java.io.*;
-import java.util.Scanner;
-
 public class urlConnectionTomatoes {
 
-    public static String trimMovieName(String movie_name){
+    public String trimMovieName(String movie_name){
 
         String input = movie_name.replace('(', ' ');// if user enters year in parentheses
         input = movie_name.replace(')', ' ');
@@ -35,53 +28,5 @@ public class urlConnectionTomatoes {
 
         return input;
     }
-
-    public static void main(String[] args)  {
-
-        Scanner reader = new Scanner(System.in);
-        String celeb="";
-
-        while (true){
-
-            try{
-
-                System.out.println("Type in name of movie. (type quit if done)");
-                String movie_name = reader.nextLine();
-                movie_name= trimMovieName(movie_name);
-                if(movie_name.equals("quit"))
-                    break;
-
-
-
-                String tomatoesPage = "https://www.rottentomatoes.com/m/"+movie_name;
-                URL tomatoes = new URL(tomatoesPage);
-                URLConnection yc = tomatoes.openConnection();
-                BufferedReader in = new BufferedReader(new InputStreamReader(
-                        yc.getInputStream()));
-
-                String inputLine;
-                String line="";
-
-
-            }
-            catch(FileNotFoundException ex)
-            {
-                System.out.println("unknown");
-            }
-            catch(MalformedURLException e)
-            {
-                System.out.println("badly formed url exception occurred");
-                return;
-            }
-            catch(IOException e)
-            {
-                System.out.println("IO exception occurred");
-                return;
-            }
-
-
-        }
-
-    }//endmain
 }//endclass
 
