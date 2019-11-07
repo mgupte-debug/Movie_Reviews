@@ -52,7 +52,7 @@ public class urlConnectionTomatoes
             String InputLine;
             while ((InputLine = br.readLine()) != null){HTML += InputLine;}
             br.close();
-            System.out.println(HTML);
+
             System.out.println(analyzer.wordFinder(HTML));
 
         }
