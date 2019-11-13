@@ -22,12 +22,14 @@ import java.util.Scanner;
 public class urlConnectionTomatoes 
 {
     WebsiteAnalyzer analyzer = new WebsiteAnalyzer();
+    MovieMenu menu = new MovieMenu();
+    //MovieMenu 
 
-    public String trimMovieName(String movie_name){
+    public String trimName(String name){
         try {
-            String input = movie_name.replace('(', ' ');// if user enters year in parentheses
+            String input = name.replace('(', ' ');// if user enters year in parentheses
             input = input.replace(')', ' ');
-
+            input = input.replace(':', ' '); //if the user enters an extended movie name (ex "Terminator: Dark Faith")
             input = input.replace(' ', '_');
 
             if (input.charAt(input.length() - 1) == '_')
@@ -42,23 +44,42 @@ public class urlConnectionTomatoes
         }
     }
     
-    public void getHTML(String movie_name) {
+
+    
+    public void getHTML(String name, int season) {
         try
         {
-            String tomatoesPage = "https://www.rottentomatoes.com/m/" + movie_name;
+            if(season != 0){
+            String tomatoesPage;
+
+            tomatoesPage = "https://www.rottentomatoes.com/m/" + name;
             URL url = new URL(tomatoesPage);
             BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
             String HTML = "";
             String InputLine;
             while ((InputLine = br.readLine()) != null){HTML += InputLine;}
             br.close();
-
+            System.out.println(HTML);
             System.out.println(analyzer.wordFinder(HTML));
+        }
+        else{
+         
+            String tomatoesPage;
+            tomatoesPage = "https://www.rottentomatoes.com/tv/" + name + season;
+            URL url = new URL(tomatoesPage);
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+            String HTML = "";
+            String InputLine;
+            while ((InputLine = br.readLine()) != null){HTML += InputLine;}
+            br.close();
+            System.out.println(HTML);
+            System.out.println(analyzer.wordFinder(HTML));
+       
+            
 
         }
-        catch (MalformedURLException e) {
-            System.out.println("badly formed url exception occurred");
-        }
+    }
+        //catch(malfor
         catch (IOException e)
         {
 
@@ -67,16 +88,6 @@ public class urlConnectionTomatoes
         {
 
         }
-        /*catch(FileNotFoundException e)
-		  {
-		  	System.out.println("unknown");
-		  }*/
+
         }
 }
-
-			  	
-
-
-    
-
-        
