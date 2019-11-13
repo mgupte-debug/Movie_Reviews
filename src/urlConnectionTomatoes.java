@@ -17,7 +17,6 @@
 
 import java.net.*;
 import java.io.*;
-import java.util.Scanner;
 
 public class urlConnectionTomatoes 
 {
@@ -25,7 +24,7 @@ public class urlConnectionTomatoes
     MovieMenu menu = new MovieMenu();
     //MovieMenu 
 
-    public String trimName(String name){
+    public String trimName(String name, int season, String showType){
         try {
             String input = name.replace('(', ' ');// if user enters year in parentheses
             input = input.replace(')', ' ');
@@ -35,8 +34,12 @@ public class urlConnectionTomatoes
             if (input.charAt(input.length() - 1) == '_')
                 input = input.substring(0, input.length() - 1);
 
-            System.out.println(input);   //delete later
-            return input;
+            if(season == 0)
+                return showType + "/" + input;
+            else if (season < 10)
+                return showType + "/" + input + "/s0" + season;
+            else
+                return showType + "/" + input + "/s" + season;
         }
         catch(StringIndexOutOfBoundsException e)
         {
@@ -46,48 +49,21 @@ public class urlConnectionTomatoes
     
 
     
-    public void getHTML(String name, int season) {
-        try
-        {
-            if(season != 0){
+    public void getHTML(String name) {
+        try {
             String tomatoesPage;
-
-            tomatoesPage = "https://www.rottentomatoes.com/m/" + name;
+            tomatoesPage = "https://www.rottentomatoes.com/" + name;
             URL url = new URL(tomatoesPage);
             BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
             String HTML = "";
             String InputLine;
-            while ((InputLine = br.readLine()) != null){HTML += InputLine;}
+            while ((InputLine = br.readLine()) != null) {
+                HTML += InputLine;
+            }
             br.close();
-            System.out.println(HTML);
-            System.out.println(analyzer.wordFinder(HTML));
-        }
-        else{
-         
-            String tomatoesPage;
-            tomatoesPage = "https://www.rottentomatoes.com/tv/" + name + season;
-            URL url = new URL(tomatoesPage);
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-            String HTML = "";
-            String InputLine;
-            while ((InputLine = br.readLine()) != null){HTML += InputLine;}
-            br.close();
-            System.out.println(HTML);
-            System.out.println(analyzer.wordFinder(HTML));
-       
-            
+            System.out.println(analyzer.RatingFinder(HTML));
+        } catch (IOException e) {
 
         }
     }
-        //catch(malfor
-        catch (IOException e)
-        {
-
-        }
-        catch (StringIndexOutOfBoundsException e)
-        {
-
-        }
-
-        }
 }
